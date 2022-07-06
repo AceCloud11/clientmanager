@@ -47,34 +47,13 @@ class _ClientScreenState extends State<ClientScreen> {
           const SizedBox(
             width: 10,
           ),
-          GestureDetector(
-            onTap: () async {
-              String msg = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AddClient()),
-              );
-
-              if (msg != null) {
-                Fluttertoast.showToast(msg: msg, backgroundColor: Colors.green);
-              }
-            },
-            child: SvgPicture.asset(
-              'assets/icons/add_user.svg',
-              width: 70,
-              height: 40,
-              color: Colors.indigo[900],
-            ),
-          ),
           const SizedBox(
             width: 10,
           ),
         ],
       ),
       body: StreamBuilder<Object>(
-          stream: db
-              .collection('clients')
-              .where('seller_id', isEqualTo: user!.uid)
-              .snapshots(),
+          stream: db.collection('clients').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               dynamic data = snapshot.data;
